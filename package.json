@@ -1,6 +1,6 @@
 {
   "name": "duxtape",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./index.js",
   "description": "Can never have enough duxtape",
   "repository": {
