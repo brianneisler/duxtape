@@ -16,4 +16,28 @@ describe('mapReducers', function() {
       b: 2
     })
   })
+
+  it('passes mapped value correctly', function() {
+    const data = {
+      a: {
+        b: 1
+      }
+    }
+    const mapped = {
+      a: (state, arg1) => {
+        expect(state).to.deep.equal({
+          b: 1
+        })
+        return {
+          b: arg1
+        }
+      }
+    }
+    const result = mapReducers(mapped)(data, 2)
+    expect(result).to.deep.equal({
+      a: {
+        b: 2
+      }
+    })
+  })
 })
