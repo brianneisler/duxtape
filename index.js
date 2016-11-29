@@ -1,3 +1,1 @@
-const duxtape = require('./dist')
-duxtape.default = duxtape
-module.exports = duxtape
+module.exports = require('./dist')

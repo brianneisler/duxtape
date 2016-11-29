@@ -1,8 +1,8 @@
 {
   "name": "duxtape",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "main": "./index.js",
-  "description": "Can never have enough duxtape",
+  "description": "Module framework for redux",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brianneisler/duxtape.git"
@@ -20,26 +20,29 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "mudash": "^0.0.5"
+    "mudash": "^0.1.0"
   },
   "devDependencies": {
-    "babel-core": "^6.13.2",
-    "babel-eslint": "^6.1.2",
-    "babel-polyfill": "^6.13.0",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-stage-1": "^6.13.0",
-    "babel-preset-stage-2": "^6.13.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
     "bluebird": "^3.4.1",
     "chai": "^3.5.0",
     "del": "^2.2.1",
-    "eslint": "^3.3.1",
+    "eslint": "^3.10.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^3.0.1",
     "gulp-mocha": "^3.0.0",
-    "gulp-recipe": "0.0.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-util": "^3.0.7"
+    "gulp-sourcemaps": "^1.9.0",
+    "gulp-util": "^3.0.7",
+    "redux": "^3.6.0"
+  },
+  "peerDependencies": {
+    "redux": "^3.6.0"
   },
   "license": "MIT",
   "keywords": [
