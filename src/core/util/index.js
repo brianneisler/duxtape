@@ -1,7 +1,2 @@
-export { default as compose } from './compose'
-export { default as createFactory } from './createFactory'
-export { default as createHelper } from './createHelper'
-export { default as createModule } from './createModule'
+export { default as combineActions } from './combineActions'
 export { default as getDisplayName } from './getDisplayName'
-export { default as setName } from './setName'
-export { default as wrapDisplayName } from './wrapDisplayName'

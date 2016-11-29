@@ -2,7 +2,7 @@
   "name": "duxtape",
   "version": "0.1.0",
   "main": "./index.js",
-  "description": "Module framework for redux",
+  "description": "Module and utility framework for redux",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brianneisler/duxtape.git"
@@ -20,9 +20,12 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "mudash": "^0.1.0"
+    "mudash": "^0.2.1",
+    "redux-actions": "^1.1.0",
+    "redux-saga": "^0.13.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
     "babel-polyfill": "^6.16.0",
