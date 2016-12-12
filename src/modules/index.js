@@ -1,2 +1,7 @@
 export * as enhancer from './enhancer'
 export * as higherorder from './higherorder'
+export * as middleware from './middleware'
+export * as reducer from './reducer'
+export * as rereducer from './rereducer'
+export * as saga from './saga'
+export * as selector from './selector'

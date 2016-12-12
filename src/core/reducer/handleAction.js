@@ -1,1 +1,1 @@
-export { handleAction } from 'redux-actions'
+export { handleAction as default } from 'redux-actions'

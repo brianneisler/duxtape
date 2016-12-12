@@ -1,3 +1,5 @@
+export { default as combineReducers } from './combineReducers'
+export { default as generateReducers } from './generateReducers'
 export { default as handleAction } from './handleAction'
 export { default as handleActions } from './handleActions'
 export { default as mapReducers } from './mapReducers'

@@ -1,12 +1,16 @@
 import _ from 'mudash'
-export default function generateHigherOrders(state, modules) {
+
+const generateHigherOrders = _.memoize((modules) => {
   return _.reduce(modules, (higherOrders, module) => {
-    if (_.isFunction(_.get(module, 'createHigherOrder'))) {
-      const higherOrder = module.createHigherOrder(state, modules)
+    const { createHigherOrder } = module
+    if (_.isFunction(createHigherOrder)) {
+      const higherOrder = createHigherOrder()
       if (_.isFunction(higherOrder)) {
         return _.push(higherOrders, higherOrder)
       }
     }
     return higherOrders
   }, _.im([]))
-}
+})
+
+export default generateHigherOrders

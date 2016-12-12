@@ -5,21 +5,44 @@ import { composeEnhancer, composeReducer, factoryModules } from './util'
 
 export default function(initialFactories, initialState = {}) {
 
-  let factories         = initialFactories
-  let currentModules    = {}
   let currentStore      = null
+  let currentFactories  = initialFactories
+  let currentModules    = {}
   let currentState      = initialState
 
-  function getStore() {
-    return currentStore
-  }
 
   function getModules() {
     return currentModules
   }
 
+  function getState() {
+    return currentStore.getState()
+  }
+
   function dispatch(action) {
-    getStore().dispatch(action)
+    return currentStore.dispatch(action)
+  }
+
+
+  let currentListeners = _.im([])
+  let nextListeners = currentListeners
+
+  function subscribe(listener) {
+    if (!_.isFunction(listener)) {
+      throw new Error('Expected listener to be a function.')
+    }
+
+    let isSubscribed = true
+    nextListeners = _.push(nextListeners, listener)
+
+    return function unsubscribe() {
+      if (!isSubscribed) {
+        return
+      }
+
+      isSubscribed = false
+      nextListeners = _.pull(nextListeners, listener)
+    }
   }
 
   function createState(state, modules) {
@@ -32,7 +55,7 @@ export default function(initialFactories, initialState = {}) {
   }
 
   function updateState(state) {
-    const state = store.getState()
+    const state = currentStore.getState()
     _.each(currentModules, (module) => {
       if (_.isFunction(_.get(module, 'updateState')) {
         module.updateState(state, dispatch)
@@ -40,60 +63,67 @@ export default function(initialFactories, initialState = {}) {
     })
   }
 
-  function replaceModules(modules) {
-    // const state       = store.getState() TODO BRN: Deal with existing state
-    currentModules = modules
-    return store.replaceReducer(composeReducer(state, modules))
+  let unsubscribeFromStore
+  function isSubscribedToStore() {
+    return typeof unsubscribeFromStore === 'function'
   }
 
-  let unsubscribe
-  function isSubscribed() {
-    return typeof unsubscribe === 'function'
-  }
-
-  function trySubscribe() {
-    if (!isSubscribed()) {
-      unsubscribe = store.subscribe(handleChange)
+  function trySubscribeToStore() {
+    if (!isSubscribedToStore()) {
+      unsubscribeFromStore = currentStore.subscribe(handleChange)
     }
   }
 
-  function tryUnsubscribe() {
-    if (isSubscribed()) {
-      unsubscribe()
-      unsubscribe = null
+  function tryUnsubscribeFromStore() {
+    if (isSubscribedToStore()) {
+      unsubscribeFromStore()
+      unsubscribeFromStore = null
     }
   }
 
   function handleChange() {
-    if (!isSubscribed()) {
+    if (!isSubscribedToStore()) {
       return
     }
 
     const prevState = currentState
-    const currentState = store.getState()
+    currentState = currentStore.getState()
 
     if (prevState === currentState) {
       return
     }
-    updateState()
+    const listeners = currentListeners = nextListeners
+    _.each(listeners, (listener) => {
+      listener(currentState)
+    })
+
+    //updateState()
   }
 
-  currentModules = factoryModules(factories, currentState, {})
-  store = createStore(
-    composeReducer(currentState, currentModules),
-    currentState,
-    composeEnhancer(currentState, currentModules)
-  )
-  trySubscribe()
+  function replaceModules(replacementFactories) {
+    tryUnsubscribeFromStore()
+    generateStore(replacementFactories, currentState)
+    trySubscribeToStore()
+  }
 
-  store = {
-    ...store,
+  function generateStore(factories, state) {
+    currentModules = factoryModules(factories, state, {})
+    currentStore = createStore(
+      composeReducer(state, currentModules),
+      state,
+      composeEnhancer(state, currentModules)
+    )
+  }
+
+  generateStore(currentFactories, currentState)
+  trySubscribeToStore()
+
+  return {
+    ...currentStore,
     dispatch,
     getModules,
-    getStore,
-    updateStore,
-    tryUnsubscribe
+    getState,
+    replaceModules,
+    subscribe
   }
-
-  return store
 }

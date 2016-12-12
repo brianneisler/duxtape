@@ -18,7 +18,7 @@ import babelRegister from 'babel-core/register'
 
 const sources = {
   babel: [
-    'src/**',
+    'src/**/*.js',
     '!**/tests/**'
   ]
 }
@@ -41,9 +41,7 @@ gulp.task('babel', function() {
     .pipe(sourcemaps.init({
       loadMaps: true
     }))
-    .pipe(babel({
-      presets: ['es2015', 'stage-1', 'stage-2']
-    }))
+    .pipe(babel())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist'))
     .on('error', (error) => {

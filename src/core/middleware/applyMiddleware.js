@@ -1,1 +1,1 @@
-export { applyMiddleware } from 'redux'
+export { applyMiddleware as default } from 'redux'

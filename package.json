@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "mudash": "^0.2.1",
+    "mudash": "^0.3.2",
     "redux-actions": "^1.1.0",
+    "redux-higher-orders": "0.0.1",
+    "redux-rereducers": "0.0.1",
     "redux-saga": "^0.13.0"
   },
   "devDependencies": {

@@ -1,17 +1,17 @@
 import _ from 'mudash'
-import { defaultState, generateEnhancers, mapState, setName, withHooks } from '../../core'
+import { defaultState, generateEnhancers, getModules, mapState, setName, withHooks } from '../../core'
 
 const build = _.compose(
   setName('enhancer'),
-  defaultState({
-    enhancers: {}
-  }),
-  mapState((state, modules) => ({
+  getModules(),
+  mapState(({ modules }) => ({
     enhancers: generateEnhancers(modules)
   })),
+  defaultState({
+    enhancers: _.im([])
+  }),
   withHooks({
-    composeEnhancer: state => enhancer => {
-      const enhancers = _.get(state, 'enhancers')
+    composeEnhancer: ({ enhancers }) => enhancer => {
       return _.compose(..._.reverse(enhancers), enhancer)
     }
   })

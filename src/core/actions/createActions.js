@@ -1,1 +1,1 @@
-export { createActions } from 'redux-actions'
+export { createActions as default } from 'redux-actions'
