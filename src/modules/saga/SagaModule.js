@@ -24,17 +24,6 @@ export default class SagasDriver extends Driver {
     })
   }
 
-  generateSagas(state, drivers) {
-    return _.reduce(drivers, (sagas, driver) => {
-      if (_.isFunction(_.get(driver, 'createSaga'))) {
-        const saga = driver.createSaga(state, drivers)
-        if (saga) {
-          return _.push(sagas, saga)
-        }
-      }
-      return sagas
-    }, _.im([]))
-  }
 
   init() {
     const sagas = _.get(this.state, 'sagas')
@@ -47,21 +36,19 @@ export default class SagasDriver extends Driver {
 
 
 import _ from 'mudash'
-import { createRereducerHigherOrder, defaultState, generateRereducers, getModules, mapState, setName, withHooks } from '../../module'
+import { createSagaMiddleware, defaultState, generateSagas, getModules, mapState, setName, withHooks, withStateOnChange } from '../../module'
 
 const build = _.compose(
   setName('sagas'),
-  getModules(),
-  mapState(({ modules }) => ({
-    rereducers: generateRereducers(modules)
+  getModules('createSaga'), // uses '_.filter' under the hood looking for modules that have the 'createSaga' hook
+  withStateOnChange(['modules'], ({ modules }) => ({ // Uses _.eq under the hood and modules is an immutable list. So if modules are shallow equal then this will not rerun
+    sagas: generateSagas(modules)
   }),
   defaultState({
-    rereducers: _.im([])
+    sagas: _.im([])
   }),
   withHooks({
-    createHigherOrder: ({ rereducers }) => () => {
-      return createRereducerHigherOrder(...rereducers)
-    }
+    createMiddleware: () => createSagaMiddleware() //TODO BRN: Hooks should be auto memoized under the hood
   })
 )
 
