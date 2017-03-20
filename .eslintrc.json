@@ -17,7 +17,7 @@
     "comma-dangle": [2, "never"],
     "curly": 2,
     "eol-last": 2,
-    "id-length": [2, {"min": 2, "max": 50, "properties": "never", "exceptions": ["e", "i", "x", "_"]}],
+    "id-length": [2, {"min": 2, "max": 50, "properties": "never", "exceptions": ["e", "i", "o", "x", "_"]}],
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-alert": 2,
     "no-const-assign": 2,

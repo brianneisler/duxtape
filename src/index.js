@@ -9,4 +9,4 @@ const exports = {
 }
 
 exports.default = exports
-modules.exports = exports
+module.exports = exports

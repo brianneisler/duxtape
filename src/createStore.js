@@ -3,7 +3,7 @@ import invariant from 'invariant'
 import { createStore } from 'redux'
 import { composeEnhancer, composeReducer, factoryModules } from './util'
 
-export default function(initialFactories, initialState = {}) {
+export default function(initialFactories, initialState = _.im({})) {
 
   let currentStore      = null
   let currentFactories  = initialFactories
@@ -55,12 +55,12 @@ export default function(initialFactories, initialState = {}) {
   }
 
   function updateState(state) {
-    const state = currentStore.getState()
-    _.each(currentModules, (module) => {
-      if (_.isFunction(_.get(module, 'updateState')) {
-        module.updateState(state, dispatch)
-      }
-    })
+    // const state = currentStore.getState()
+    // _.each(currentModules, (module) => {
+    //   if (_.isFunction(_.get(module, 'updateState'))) {
+    //     module.updateState(state, dispatch)
+    //   }
+    // })
   }
 
   let unsubscribeFromStore

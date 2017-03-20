@@ -6,7 +6,7 @@ const build = _.compose(
   getModules(),
   mapState(({ modules }) => ({
     rereducers: generateRereducers(modules)
-  }),
+  })),
   defaultState({
     rereducers: _.im([])
   }),

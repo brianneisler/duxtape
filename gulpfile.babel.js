@@ -20,6 +20,11 @@ const sources = {
   babel: [
     'src/**/*.js',
     '!**/tests/**'
+  ],
+  lint: [
+    '**/*.js',
+    '!node_modules/**',
+    '!dist/**'
   ]
 }
 
@@ -50,11 +55,7 @@ gulp.task('babel', function() {
 })
 
 gulp.task('lint', () => {
-  return gulp.src([
-    '**/*.js',
-    '!node_modules/**',
-    '!dist/**'
-  ])
+  return gulp.src(sources.lint)
   .pipe(eslint())
   .pipe(eslint.formatEach())
   .pipe(eslint.failOnError())

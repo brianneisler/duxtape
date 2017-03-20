@@ -1,7 +1,8 @@
-import { createStore } from 'duxtape'
-import { enhancer, higherOrder, middleware, reducer, rereducer, saga, selector } from 'duxtape/modules'
+/* eslint-disable no-console */
+const o = require('../') //'duxtape'
+const { enhancer, higherOrder, middleware, reducer, rereducer, saga, selector } = o.modules
 
-const store = createStore([
+const store = o.createStore([
   enhancer,
   reducer,
   middleware,
@@ -10,3 +11,7 @@ const store = createStore([
   selector,
   saga
 ])
+
+console.log('store:', store)
+console.log('store.getModules():', store.getModules())
+console.log('store.getState():', store.getState())

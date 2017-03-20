@@ -1,5 +1,5 @@
 import _ from 'mudash'
-import { createHelper } from '../util'
+import createHelper from './createHelper'
 import mapState from './mapState'
 
 const withState = input =>

@@ -1,15 +1,15 @@
 import _ from 'mudash'
 
-const getDisplayName = module => {
-  if (_.isString(module)) {
-    return module
+const getDisplayName = value => {
+  if (_.isString(value)) {
+    return value
   }
 
-  if (!module) {
+  if (!value) {
     return undefined
   }
 
-  return module.displayName || module.name || 'Module'
+  return value.displayName || value.name || 'Module'
 }
 
 export default getDisplayName

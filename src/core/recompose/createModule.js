@@ -1,5 +1,5 @@
 import _ from 'mudash'
-import moduleEquals from './moduleEquals'
+import moduleEquals from '../util/moduleEquals'
 
 const createModule = (
   baseModule,

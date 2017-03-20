@@ -1,8 +1,7 @@
 import _ from 'mudash'
-import { combineReducers, defaultState, generateReducers, getModules, mapState, setName, withHooks } from '../../core'
+import { combineReducers, defaultState, generateReducers, getModules, mapState, withHooks } from '../../core'
 
 const build = _.compose(
-  setName('reducer'),
   getModules(),
   mapState(({ modules }) => ({
     reducers: generateReducers(modules)

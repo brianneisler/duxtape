@@ -1,9 +1,5 @@
-import createModule from './createModule'
-
-const createFactory = baseModule => {
-  //TODO BRN: Add memoization
-  return (state, ...rest) =>
-    createModule(baseModule, state, ...rest)
-}
+const createFactory = baseFunc =>
+  //TODO BRN: Can this be memoized?
+  (props, ...rest) => baseFunc(props, ...rest)
 
 export default createFactory

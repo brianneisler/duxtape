@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import o from '../'  //'duxtape'
 import { reducer } from '../modules' //'duxtape/modules'
 
@@ -23,10 +24,10 @@ const build = o.compose(
     INCREMENT: (state, action) => ({
       counter: state.counter + action.payload
     })
-  }),
+  })),
   o.withHooks({
-    init: (state) => console.log('module initialized'),
-    receiveState: (nextState, state) => console.log('module state received:', nextState)
+    init: (state) => console.log('module initialized with state:', state),
+    receiveState: (nextState, state) => console.log('module state received:', nextState, ' previousState:', state)
   })
 )
 

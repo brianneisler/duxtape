@@ -1,14 +1,14 @@
 import createFactory from './createFactory'
-import getDisplayName from './getDisplayName'
+import getDisplayName from '../util/getDisplayName'
 
-const wrapDisplayName = displayName => baseModule => {
-  const factory = createFactory(baseModule)
-  return (state, ...rest) => {
-    const module = factory(state, ...rest)
-    return {
-      ...module,
-      displayName: `${displayName}(${getDisplayName(module)})`
+const wrapDisplayName = displayName => baseFunc => {
+  const factory = createFactory(baseFunc)
+  return (props, ...rest) => {
+    const result = factory(props, ...rest)
+    if (result) {
+      result.displayName = `${displayName}(${getDisplayName(result)})`
     }
+    return result
   }
 }
 

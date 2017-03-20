@@ -1,4 +1,5 @@
-import { createFactory, createHelper } from '../util'
+import createFactory from './createFactory'
+import createHelper from './createHelper'
 
 const mapState = stateMapper => baseModule => {
   const factory = createFactory(baseModule)

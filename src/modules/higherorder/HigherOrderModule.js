@@ -1,15 +1,11 @@
 import _ from 'mudash'
-import { applyHigherOrder, defaultState, generateHigherOrders, getModules, mapState, setName, withHooks } from '../../module'
+import { applyHigherOrder, defaultState, generateHigherOrders, getModules, mapState, setName, withHooks } from '../../core'
 
 const build = _.compose(
-  setName('higherorder'),
   getModules(),
   mapState(({ modules }) => ({
     higherOrders: generateHigherOrders(modules)
-  }),
-  defaultState({
-    higherOrders: _.im([])
-  }),
+  })),
   withHooks({
     createEnhancer: ({ higherOrders }) => () => {
       return applyHigherOrder(...higherOrders)
@@ -18,3 +14,12 @@ const build = _.compose(
 )
 
 export default build()
+//
+// @select((state) => ({
+//   higherOrders: generateHigherOrders(state.modules)
+// }))
+// export default class HigherOrderModule extends Module {
+//   createEnhancer() {
+//     return applyHigherOrder(...this.state.higherOrders)
+//   }
+// }
